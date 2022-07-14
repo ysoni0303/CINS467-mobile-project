@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import'package:flutter/material.dart';
 import 'package:video_app/const.dart';
+import 'package:video_app/views/screens/auth/home_screen.dart';
 import 'package:video_app/views/screens/auth/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -51,9 +52,15 @@ InkWell(
   borderRadius:BorderRadius.circular(5),
   ),// BoxDecoration
 child:Center(
-  child:Text(
-    'Login',
-    style:TextStyle(fontSize:20,fontWeight: FontWeight.bold),
+  
+  child:InkWell(
+      onTap:(){
+  Navigator.of(context).push(MaterialPageRoute(builder: ((context) => HomeScreen())));
+  },
+    child: Text(
+      'Login',
+      style:TextStyle(fontSize:20,fontWeight: FontWeight.bold),
+    ),
   ),// Texteld)
 ),
   ),
