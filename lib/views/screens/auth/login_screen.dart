@@ -6,7 +6,10 @@ import 'package:video_app/views/screens/auth/home_screen.dart';
 import 'package:video_app/views/screens/auth/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  // const LoginScreen({Key? key}) : super(key: key);
+
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -18,6 +21,7 @@ class LoginScreen extends StatelessWidget {
     mainAxisAlignment:MainAxisAlignment.center,
     children:[
       TextField(
+        controller: _email,
         decoration:InputDecoration(
           border:OutlineInputBorder(
             borderRadius:BorderRadius.circular(20),
@@ -29,6 +33,7 @@ class LoginScreen extends StatelessWidget {
       SizedBox(height:15,)
  ,// SizedBox
 TextField(
+  controller: _password,
   decoration:InputDecoration(
     border:OutlineInputBorder(
       borderRadius:BorderRadius.circular(20),
@@ -54,9 +59,10 @@ InkWell(
 child:Center(
   
   child:InkWell(
-      onTap:(){
-  Navigator.of(context).push(MaterialPageRoute(builder: ((context) => HomeScreen())));
-  },
+  //     onTap:(){
+  // Navigator.of(context).push(MaterialPageRoute(builder: ((context) => HomeScreen())));
+  // },
+  onTap: () => authController.loginUser( _email.text, _password.text),
     child: Text(
       'Login',
       style:TextStyle(fontSize:20,fontWeight: FontWeight.bold),

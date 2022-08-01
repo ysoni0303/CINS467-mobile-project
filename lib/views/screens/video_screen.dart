@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:video_app/controllers/video_controller.dart';
+import 'package:video_app/widgets/videoplayeritem.dart';
 
 class VideoScreen extends StatelessWidget {
+  final VideoController _videoController = Get.put(VideoController());
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: PageView.builder(
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return Stack(
+    return Scaffold(body: Obx(() {
+      return PageView.builder(
+          itemCount: _videoController.videoList.length,
+          controller: PageController(initialPage: 0, viewportFraction: 1),
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            final data = _videoController.videoList[index];
+            return Stack(children: [
+              VideoPlayerItem(videoUrl: data.videoUrl),
+              Column(
                 children: [
                   SizedBox(
                     height: 100,
@@ -27,13 +37,13 @@ class VideoScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text('Username',
+                                  Text(data.username,
                                       style: TextStyle(
                                         fontSize: 21,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       )),
-                                  Text('Caption',
+                                  Text(data.caption,
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
@@ -45,7 +55,7 @@ class VideoScreen extends StatelessWidget {
                                       size: 15,
                                       color: Colors.white,
                                     ),
-                                    Text('Song Name',
+                                    Text(data.songName,
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.white,
@@ -64,53 +74,47 @@ class VideoScreen extends StatelessWidget {
                             ), // EdgeInsets.only
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [CircleAvatar(
-                                radius: 15,
-                                backgroundColor: Colors.grey,
-
-                              ),
-                              
-                              Column(
-                                children: [
-                                  InkWell(
-                                child: Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 20,
-                                )
-                              ),
-                              Text('200 likes', style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-
-                                                            Column(
-                                children: [
-                                  InkWell(
-                                child: Icon(
-                                  Icons.reply,
-                                  color: Colors.red,
-                                  size: 20,
-                                )
-                              ),
-                              Text('200 shares', style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-
-                                                            Column(
-                                children: [
-                                  InkWell(
-                                child: Icon(
-                                  Icons.comment,
-                                  color: Colors.red,
-                                  size: 20,
-                                )
-                              ),
-                              Text('200 comments', style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-
-                              
-                              
+                              children: [
+                                CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey,
+                                ),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        child: Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                      size: 20,
+                                    )),
+                                    Text(data.likes.length.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        child: Icon(
+                                      Icons.reply,
+                                      color: Colors.red,
+                                      size: 20,
+                                    )),
+                                    Text(data.shareCount.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        child: Icon(
+                                      Icons.comment,
+                                      color: Colors.red,
+                                      size: 20,
+                                    )),
+                                    Text(data.commentCount.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
                               ],
                             ), // Column
                           ) // Container
@@ -119,7 +123,9 @@ class VideoScreen extends StatelessWidget {
                     ],
                   )
                 ],
-              );
-            })); // Scaffold
+              )
+            ]);
+          });
+    })); // Scaffold
   }
 }

@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:io';
 
 import 'package:video_player/video_player.dart';
+
+import '../../controllers/upload_video_controller.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final File videoFile;
@@ -20,6 +23,9 @@ class ConfirmScreen extends StatefulWidget {
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
+
+  final TextEditingController _songNameController = TextEditingController();
+  final TextEditingController _captionController = TextEditingController();
 
   @override
   void initState() {
@@ -40,6 +46,9 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     controller.dispose();
   }
 
+  final UploadVideoController _uploadVideoController =
+      Get.put(UploadVideoController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,21 +61,22 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 1.5,
-            child: VideoPlayer(controller ),
+            child: VideoPlayer(controller),
           ),
 
           SizedBox(
             height: 30,
           ),
           TextField(
+            controller: _songNameController,
             decoration: InputDecoration(
-              hintText: 'Name',
+              hintText: 'Song Name',
               border: OutlineInputBorder(),
             ),
           ),
 
- 
           TextField(
+            controller: _captionController,
             decoration: InputDecoration(
               hintText: 'Caption',
               border: OutlineInputBorder(),
@@ -75,9 +85,13 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           SizedBox(
             height: 15,
           ),
-          ElevatedButton(style: ElevatedButton.styleFrom(
-            primary: Colors.blue
-          ), onPressed: () {}, child: Text('Share'))
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.blue),
+              onPressed: () {
+                _uploadVideoController.uploadVideo(_songNameController.text,
+                    _captionController.text, widget.videoPath);
+              },
+              child: Text('Share'))
         ],
       ), // Column
     )); // SingleChildScrollView //
