@@ -4,12 +4,19 @@ import 'package:get/get.dart';
 import 'package:video_app/const.dart';
 import 'package:video_app/controllers/auth_controller.dart';
 import 'package:video_app/views/screens/auth/login_screen.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp().then((value) {
-  //   Get.put(AuthController());
+    
   // });
+
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+  ).then((value) {
+    Get.put(AuthController());
+  });
   runApp(const MyApp());
 }
 

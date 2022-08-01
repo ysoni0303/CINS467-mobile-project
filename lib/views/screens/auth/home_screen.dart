@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
 
         activeColor: Colors.red,
-        inactiveColor: Colors.white,
+        inactiveColor: Colors.grey,
         backgroundColor: backgroundColor,
         items: [
           BottomNavigationBarItem(
@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Add',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, size: 30,),
-            label: 'Message',
+            icon: Icon(Icons.notifications, size: 30,),
+            label: 'Notifications',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person, size: 30,),

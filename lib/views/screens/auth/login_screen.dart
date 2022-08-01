@@ -72,7 +72,7 @@ SizedBox(
 Row(
   mainAxisAlignment:MainAxisAlignment.center,
   children:[
-    Text('Dont"t have an Account?',
+    Text('Need an Account?',
       style:TextStyle(fontSize:20),
     ),// Text
     SizedBox(width:5),
