@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Video App!!',
       theme: new ThemeData(primarySwatch: Colors.red),
       home: new LoginPage(),
     );
@@ -31,8 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordFilter = new TextEditingController();
   String _email = "";
   String _password = "";
-  FormType _form = FormType
-      .login; // our default setting is to login, and we should switch to creating an account when the user chooses to
+  FormType _form = FormType.login;
 
   _LoginPageState() {
     _emailFilter.addListener(_emailListen);
@@ -53,17 +51,6 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       _password = _passwordFilter.text;
     }
-  }
-
-  // Swap in between our two forms, registering and logging in
-  void _formChange() async {
-    setState(() {
-      if (_form == FormType.register) {
-        _form = FormType.login;
-      } else {
-        _form = FormType.register;
-      }
-    });
   }
 
   @override

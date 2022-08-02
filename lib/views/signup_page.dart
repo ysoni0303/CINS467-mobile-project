@@ -84,7 +84,6 @@ class _LoginPageState extends State<SignUp> {
 
   Widget _buildBar(BuildContext context) {
     return new AppBar(
-      title: new Text("Simple Login Example"),
       centerTitle: true,
     );
   }
@@ -105,7 +104,7 @@ class _LoginPageState extends State<SignUp> {
                 bottom: -10,
                 left: 80,
                 child: IconButton(
-                  onPressed: () => authController.pickImage(),
+                  onPressed: () => authController.uploadImage(),
                   icon: Icon(Icons.add_a_photo),
                 ), // IconButton
               )

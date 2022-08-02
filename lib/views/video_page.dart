@@ -59,8 +59,6 @@ class VideoPage extends StatelessWidget {
                     SizedBox(
                       height: 100,
                     ),
-                    // Column(
-                    //   children: [
                     Expanded(
                         child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -165,7 +163,6 @@ class VideoPage extends StatelessWidget {
                 )
               ],
             );
-            // ]);
           });
     })); // Scaffold
   }

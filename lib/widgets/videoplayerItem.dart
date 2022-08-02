@@ -25,7 +25,6 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     videoPlayerController.dispose();
   }
@@ -37,7 +36,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         color: Colors.black,
-      ), // BoxDecoration
+      ),
       child: VideoPlayer(videoPlayerController),
     );
   }

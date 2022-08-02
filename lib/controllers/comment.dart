@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:video_app/const.dart';
+
+import '/const.dart';
 import '../models/comment.dart';
 
 class CommentController extends GetxController {
@@ -11,10 +12,10 @@ class CommentController extends GetxController {
 
   updatePostId(String id) {
     _postId = id;
-    getComment();
+    getComments();
   }
 
-  getComment() async {
+  getComments() async {
     _comments.bindStream(
       firestore
           .collection('videos')
@@ -71,36 +72,6 @@ class CommentController extends GetxController {
     } catch (e) {
       print(e);
       Get.snackbar("Error", e.toString());
-    }
-  }
-
-  likeComment(String id) async {
-    var uid = authController.user.uid;
-    DocumentSnapshot doc = await firestore
-        .collection('videos')
-        .doc(_postId)
-        .collection('comments')
-        .doc(id)
-        .get();
-
-    if ((doc.data() as dynamic)['likes'].contains(uid)) {
-      await firestore
-          .collection('videos')
-          .doc(_postId)
-          .collection('comments')
-          .doc(id)
-          .update({
-        'likes': FieldValue.arrayRemove([uid]),
-      });
-    } else {
-      await firestore
-          .collection('videos')
-          .doc(_postId)
-          .collection('comments')
-          .doc(id)
-          .update({
-        'likes': FieldValue.arrayUnion([uid]),
-      });
     }
   }
 }

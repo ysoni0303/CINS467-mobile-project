@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_app/const.dart';
 import 'package:get/get.dart';
 import 'dart:io' as i;
-import 'package:video_app/models/users.dart' as model;
-import 'package:video_app/views/login_page.dart';
+
+import '../models/users.dart' as model;
+import '../views/login_page.dart';
 import '../views/home_page.dart';
+import '../const.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -19,7 +20,6 @@ class AuthController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     _user = Rx<User?>(firebaseAuth.currentUser);
     _user.bindStream(firebaseAuth.authStateChanges());
@@ -34,12 +34,12 @@ class AuthController extends GetxController {
     }
   }
 
-  void pickImage() async {
+  void uploadImage() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      Get.snackbar('Profile Photo', 'Congratulations');
+      Get.snackbar('Profile Photo', 'Uploaded Successfully!!');
     }
 
     _pickedImage = Rx<i.File?>(i.File(pickedImage!.path));
@@ -89,7 +89,7 @@ class AuthController extends GetxController {
       if (email.isNotEmpty && password.isNotEmpty) {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password);
-        print('logged in already');
+        print('Logged in already');
         Get.offAll(HomePage());
       } else {
         Get.snackbar('Error logging', 'Check details');

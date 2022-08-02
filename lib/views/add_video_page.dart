@@ -54,9 +54,8 @@ class AddVideoPage extends StatelessWidget {
       children: <Widget>[
         IconButton(
             icon: Icon(Icons.upload),
-            iconSize: 50,
-            color: Colors.brown,
-            tooltip: 'Increase volume by 5',
+            iconSize: 40,
+            color: Colors.red,
             onPressed: () => showDialogOption(context)),
         Text('Upload Video')
       ],

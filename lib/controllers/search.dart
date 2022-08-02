@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:video_app/const.dart';
-import 'package:video_app/models/users.dart';
+
+import '/const.dart';
+import '../models/users.dart';
 
 class SearchController extends GetxController {
   final Rx<List<User>> _searchedUsers = Rx<List<User>>([]);

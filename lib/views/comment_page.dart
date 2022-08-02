@@ -42,8 +42,8 @@ class CommentPage extends StatelessWidget {
                             comments.username.toString(),
                             style: TextStyle(
                               fontSize: 18,
-                            ), // TextStyle
-                          ), // Text
+                            ),
+                          ),
                           SizedBox(
                             width: 10,
                           ),
@@ -64,9 +64,8 @@ class CommentPage extends StatelessWidget {
                         ],
                       ),
                     );
-                  }); // ListTile
+                  });
             })),
-
             Divider(),
             ListTile(
               title: TextFormField(
@@ -94,26 +93,22 @@ class CommentPage extends StatelessWidget {
                   ),
                 ),
               ),
-
               trailing: TextButton(
                 onPressed: () {
                   commentController.postComment(_commentController.text);
                   _commentController.clear();
                 },
-
                 child: const Text(
                   'Publish',
                   style: TextStyle(
                     color: Colors.white,
-                  ), // Text Style
-                ), // Text
-              ), // TextButton
-            ), // ListTile
-
-            // ListView.builder // Expanded
+                  ),
+                ),
+              ),
+            ),
           ],
-        ), // Column
-      ), // SizedBox
-    )); // SingleChildScrollView // Scaffold
+        ),
+      ),
+    ));
   }
 }

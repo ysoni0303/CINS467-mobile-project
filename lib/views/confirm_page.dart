@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 
 import 'package:video_player/video_player.dart';
-import '../controllers/upload_video_controller.dart';
+import '../controllers/upload.dart';
 
 class ConfirmPage extends StatefulWidget {
   final File videoFile;
@@ -22,7 +22,6 @@ class ConfirmPage extends StatefulWidget {
 
 class _ConfirmPageState extends State<ConfirmPage> {
   late VideoPlayerController controller;
-
   final TextEditingController _songNameController = TextEditingController();
   final TextEditingController _captionController = TextEditingController();
 
@@ -56,13 +55,12 @@ class _ConfirmPageState extends State<ConfirmPage> {
         children: [
           SizedBox(
             height: 30,
-          ), // Sized Box
+          ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 1.5,
             child: VideoPlayer(controller),
           ),
-
           SizedBox(
             height: 30,
           ),
@@ -73,7 +71,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
               border: OutlineInputBorder(),
             ),
           ),
-
           TextField(
             controller: _captionController,
             decoration: InputDecoration(
@@ -92,7 +89,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
               },
               child: Text('Share'))
         ],
-      ), // Column
-    )); // SingleChildScrollView //
+      ),
+    ));
   }
 }

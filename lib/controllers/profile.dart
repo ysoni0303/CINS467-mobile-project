@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:video_app/const.dart';
+
+import '/const.dart';
 
 class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
@@ -9,10 +10,10 @@ class ProfileController extends GetxController {
 
   updateUserId(String uid) {
     _uid.value = uid;
-    getUserData();
+    getUserDetails();
   }
 
-  getUserData() async {
+  getUserDetails() async {
     List<String> thumbnails = [];
     var myVideos = await firestore
         .collection('videos')
