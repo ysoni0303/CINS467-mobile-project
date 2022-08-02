@@ -7,7 +7,7 @@ import 'views/add_video_page.dart';
 import 'views/profile_page.dart';
 import 'views/search_page.dart';
 import 'views/video_page.dart';
-import 'controllers/auth_controller.dart';
+import 'controllers/auth.dart';
 
 List pages = [
   VideoPage(),

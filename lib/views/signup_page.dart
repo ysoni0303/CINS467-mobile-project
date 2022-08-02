@@ -1,9 +1,10 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:video_app/const.dart';
-import 'package:video_app/views/login_page.dart';
 import 'package:flutter/material.dart';
+
+import '/const.dart';
+import '../views/login_page.dart';
 
 void main() => runApp(new MyApp());
 

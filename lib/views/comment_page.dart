@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '/const.dart';
-import '../controllers/comment_controller.dart';
+import '../controllers/comment.dart';
 
 class CommentPage extends StatelessWidget {
   final String id;

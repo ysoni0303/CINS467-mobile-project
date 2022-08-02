@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:video_app/const.dart';
-import 'package:video_app/controllers/profile_controller.dart';
+import 'package:video_app/controllers/profile.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;

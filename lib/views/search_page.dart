@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../models/users.dart';
 import '../views/profile_page.dart';
-import '../controllers/search_controller.dart';
+import '../controllers/search.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({Key? key}) : super(key: key);

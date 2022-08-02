@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:video_app/controllers/video_controller.dart';
-import 'package:video_app/views/comment_page.dart';
-import 'package:video_app/widgets/videoplayeritem.dart';
+
+import '../controllers/video.dart';
+import '../views/comment_page.dart';
+import '../views/videoplayeritem.dart';
 
 class VideoPage extends StatelessWidget {
   final VideoController _videoController = Get.put(VideoController());
