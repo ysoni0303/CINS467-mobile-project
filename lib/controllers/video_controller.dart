@@ -5,7 +5,6 @@ import 'package:video_app/models/video.dart';
 
 class VideoController extends GetxController {
   final Rx<List<Video>> _videoList = Rx<List<Video>>([]);
-
   List<Video> get videoList => _videoList.value;
 
   @override

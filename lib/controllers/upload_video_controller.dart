@@ -23,7 +23,6 @@ class UploadVideoController {
 
   _getThumbnail(String videoPath) async {
     final thumbnail = VideoCompress.getFileThumbnail(videoPath);
-
     return thumbnail;
   }
 

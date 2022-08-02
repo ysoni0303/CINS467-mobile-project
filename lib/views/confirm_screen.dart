@@ -4,10 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-
 import 'package:video_player/video_player.dart';
-
-import '../../controllers/upload_video_controller.dart';
+import '../controllers/upload_video_controller.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final File videoFile;

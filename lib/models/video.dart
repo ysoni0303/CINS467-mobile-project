@@ -28,17 +28,17 @@ class Video {
   });
 
   Map<String, dynamic> toJson() => {
-        'username': username,
-        'uid': uid,
-        'id': id,
-        'likes': likes,
-        'commentCount': commentCount,
-        'shareCount': shareCount,
-        'songName': songName,
-        'caption': caption,
-        'videoUrl': videoUrl,
-        'thumbnail': thumbnail,
-        'profilePhoto': profilePhoto,
+        "username": username,
+        "uid": uid,
+        "id": id,
+        "likes": likes,
+        "commentCount": commentCount,
+        "shareCount": shareCount,
+        "songName": songName,
+        "caption": caption,
+        "videoUrl": videoUrl,
+        "thumbnail": thumbnail,
+        "profilePhoto": profilePhoto,
       };
 
   static Video fromSnap(DocumentSnapshot snap) {
