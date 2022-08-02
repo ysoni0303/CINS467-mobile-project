@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:video_app/models/users.dart';
-// import 'package:video_app/views/screens/profile_screen.dart';
-import 'package:video_app/controllers/search_controller.dart';
 
-class SearchScreen extends StatelessWidget {
-  SearchScreen({Key? key}) : super(key: key);
+import '../models/users.dart';
+import '../views/profile_page.dart';
+import '../controllers/search_controller.dart';
+
+class SearchPage extends StatelessWidget {
+  SearchPage({Key? key}) : super(key: key);
 
   final SearchController _searchController = Get.put(SearchController());
   final TextEditingController searchController = TextEditingController();

@@ -4,22 +4,23 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
+
 import 'package:video_player/video_player.dart';
 import '../controllers/upload_video_controller.dart';
 
-class ConfirmScreen extends StatefulWidget {
+class ConfirmPage extends StatefulWidget {
   final File videoFile;
   final String videoPath;
 
-  const ConfirmScreen(
+  const ConfirmPage(
       {Key? key, required this.videoFile, required this.videoPath})
       : super(key: key);
 
   @override
-  State<ConfirmScreen> createState() => _ConfirmScreenState();
+  State<ConfirmPage> createState() => _ConfirmPageState();
 }
 
-class _ConfirmScreenState extends State<ConfirmScreen> {
+class _ConfirmPageState extends State<ConfirmPage> {
   late VideoPlayerController controller;
 
   final TextEditingController _songNameController = TextEditingController();

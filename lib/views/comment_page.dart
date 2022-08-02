@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:video_app/const.dart';
+
+import '/const.dart';
 import '../controllers/comment_controller.dart';
 
-class CommentScreen extends StatelessWidget {
+class CommentPage extends StatelessWidget {
   final String id;
   final TextEditingController _commentController = TextEditingController();
   final CommentController commentController = Get.put(CommentController());
 
-  CommentScreen({super.key, required this.id});
+  CommentPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -55,32 +56,13 @@ class CommentScreen extends StatelessWidget {
                       subtitle: Row(
                         children: [
                           Text(
-                            // timeago.format('100'),
-                            '100',
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            timeago.format(
+                              comments.datepublished.toDate(),
+                            ),
+                            style: TextStyle(fontSize: 15, color: Colors.blue),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            // '${comments.likes} likes',
-                            '${comments.likes.length}, likes',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
-                          )
                         ],
                       ),
-
-                      // trailing: InkWell(
-                      //   onTap: () => commentController.likeComment(comments.id),
-                      //   child: Icon(
-                      //     Icons.favorite,
-                      //     color:
-                      //         comments.likes.contains(authController.user.uid)
-                      //             ? Colors.red
-                      //             : Colors.white,
-                      //   ),
-                      // ), // Icon
-                      // Row // CircleAvatar
                     );
                   }); // ListTile
             })),

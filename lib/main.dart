@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_app/const.dart';
 import 'package:video_app/controllers/auth_controller.dart';
-import 'package:video_app/views/login_screen.dart';
+import 'package:video_app/views/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: LoginScreen(),
+      home: LoginPage(),
     );
   }
 }

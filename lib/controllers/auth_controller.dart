@@ -5,8 +5,8 @@ import 'package:video_app/const.dart';
 import 'package:get/get.dart';
 import 'dart:io' as i;
 import 'package:video_app/models/users.dart' as model;
-import 'package:video_app/views/login_screen.dart';
-import '../views/home_screen.dart';
+import 'package:video_app/views/login_page.dart';
+import '../views/home_page.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -28,9 +28,9 @@ class AuthController extends GetxController {
 
   _setInitialState(User? user) {
     if (user == null) {
-      Get.offAll(LoginScreen());
+      Get.offAll(LoginPage());
     } else {
-      Get.offAll(HomeScreen());
+      Get.offAll(HomePage());
     }
   }
 
@@ -90,7 +90,7 @@ class AuthController extends GetxController {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password);
         print('logged in already');
-        Get.offAll(HomeScreen());
+        Get.offAll(HomePage());
       } else {
         Get.snackbar('Error logging', 'Check details');
       }

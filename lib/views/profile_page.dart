@@ -5,18 +5,18 @@ import 'package:get/instance_manager.dart';
 import 'package:video_app/const.dart';
 import 'package:video_app/controllers/profile_controller.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   final String uid;
-  const ProfileScreen({
+  const ProfilePage({
     Key? key,
     required this.uid,
   }) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfilePageState extends State<ProfilePage> {
   final ProfileController profileController = Get.put(ProfileController());
 
   @override

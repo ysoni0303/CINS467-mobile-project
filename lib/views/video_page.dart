@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_app/controllers/video_controller.dart';
-import 'package:video_app/views/comment_screen.dart';
-import 'package:video_app/widgets/circle_animation.dart';
+import 'package:video_app/views/comment_page.dart';
 import 'package:video_app/widgets/videoplayeritem.dart';
 
-class VideoScreen extends StatelessWidget {
+class VideoPage extends StatelessWidget {
   final VideoController _videoController = Get.put(VideoController());
 
   buildMusicAlbum(String profilePhoto) {
@@ -75,6 +74,49 @@ class VideoScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        child: Icon(
+                                      Icons.favorite,
+                                      color: Colors.yellow,
+                                      size: 40,
+                                    )),
+                                    Text(data.likes.length.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        child: Icon(
+                                      Icons.reply,
+                                      color: Colors.yellow,
+                                      size: 40,
+                                    )),
+                                    Text(data.shareCount.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return CommentPage(id: data.id);
+                                          })); // Material PageRoute
+                                        },
+                                        child: Icon(
+                                          Icons.comment,
+                                          color: Colors.yellow,
+                                          size: 40,
+                                        )),
+                                    Text(data.commentCount.toString(),
+                                        style: TextStyle(color: Colors.amber))
+                                  ],
+                                ),
                                 Text(data.username,
                                     style: TextStyle(
                                       fontSize: 21,
@@ -104,63 +146,19 @@ class VideoScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         Container(
-                          width: 100,
-                          margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height / 5,
-                              left: 100.0), // EdgeInsets.only
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  InkWell(
-                                      child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.yellow,
-                                    size: 40,
-                                  )),
-                                  Text(data.likes.length.toString(),
-                                      style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  InkWell(
-                                      child: Icon(
-                                    Icons.reply,
-                                    color: Colors.yellow,
-                                    size: 40,
-                                  )),
-                                  Text(data.shareCount.toString(),
-                                      style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return CommentScreen(id: data.id);
-                                        })); // Material PageRoute
-                                      },
-                                      child: Icon(
-                                        Icons.comment,
-                                        color: Colors.yellow,
-                                        size: 40,
-                                      )),
-                                  Text(data.commentCount.toString(),
-                                      style: TextStyle(color: Colors.amber))
-                                ],
-                              ),
-                              CircleAnimation(
-                                  child: buildMusicAlbum(data.profilePhoto))
-                            ],
-                          ), // Column
-                        ) // Container
+                          padding: const EdgeInsets.all(15),
+                          alignment: Alignment.bottomRight,
+                          width: 100.0,
+                          height: 100.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(40.0),
+                            child: Image.network(
+                              data.profilePhoto,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ],
                     )),
                   ],
