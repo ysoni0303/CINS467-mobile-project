@@ -78,7 +78,8 @@ class AuthController extends GetxController {
             .doc(cred.user!.uid)
             .set(user.toJson());
       } else {
-        Get.snackbar('Error creating account', 'Please enter all details');
+        Get.snackbar(
+            'Error creating account', 'Please enter all details & image');
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());

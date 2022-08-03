@@ -1,11 +1,15 @@
-import 'dart:ffi';
-
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:video_app/controllers/auth.dart';
+import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import '../controllers/profile.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -49,9 +53,6 @@ class _ProfilePageState extends State<Profile> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
-              // actions: const [
-              //   Icon(Icons.more_horiz),
-              // ],
               title: Text(
                 'Username- ${controller.user['name']}',
                 style: const TextStyle(
@@ -68,30 +69,27 @@ class _ProfilePageState extends State<Profile> {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ClipOval(
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  imageUrl: controller.user['profilePhoto'],
-                                  height: 100,
-                                  width: 100,
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(
-                                    Icons.error,
+                              AvatarGlow(
+                                endRadius: 70.0,
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    imageUrl: controller.user['profilePhoto'],
+                                    height: 60,
+                                    width: 60,
+                                    placeholder: (context, url) =>
+                                        const CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.error,
+                                    ),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
                               Column(
                                 children: [
                                   Text(
@@ -165,7 +163,7 @@ class _ProfilePageState extends State<Profile> {
                             ],
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 25,
                           ),
                           Container(
                             width: 140,
@@ -177,7 +175,7 @@ class _ProfilePageState extends State<Profile> {
                             ),
                             child: Center(
                               child: InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   if (widget.isSearch != true &&
                                       widget.uid ==
                                           AuthController.instance.user.uid) {
@@ -190,7 +188,7 @@ class _ProfilePageState extends State<Profile> {
                                 },
                                 child: Text(
                                   widget.uid == AuthController.instance.user.uid
-                                      ? 'Sign Out'
+                                      ? 'Logout'
                                       : controller.user['isFollowing']
                                           ? 'Unfollow'
                                           : 'Follow',
@@ -205,26 +203,77 @@ class _ProfilePageState extends State<Profile> {
                           const SizedBox(
                             height: 25,
                           ),
-                          // video list
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.user['thumbnails'].length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1,
-                              crossAxisSpacing: 5,
+                          Container(
+                            width: 140,
+                            height: 47,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black12,
+                              ),
                             ),
-                            itemBuilder: (context, index) {
-                              String thumbnail =
-                                  controller.user['thumbnails'][index];
-                              return CachedNetworkImage(
-                                imageUrl: thumbnail,
-                                fit: BoxFit.cover,
-                              );
-                            },
-                          )
+                            child: Center(
+                              child: InkWell(
+                                onTap: () async {
+                                  final uri = Uri.parse(controller
+                                      .user['profilePhoto']
+                                      .toString());
+                                  final res = await http.get(uri);
+                                  final bytes = res.bodyBytes;
+                                  final temp = await getTemporaryDirectory();
+                                  final path = '${temp.path}/image.jpeg';
+                                  File(path).writeAsBytesSync(bytes);
+                                  await Share.shareFiles([path]);
+                                },
+                                child: Text(
+                                  'Share Profile',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Your Video List!!',
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          controller.user['thumbnails'].length != 0
+                              ? GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      controller.user['thumbnails'].length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 1,
+                                    crossAxisSpacing: 4,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    String thumbnail =
+                                        controller.user['thumbnails'][index];
+                                    return CachedNetworkImage(
+                                      imageUrl: thumbnail,
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                )
+                              : Text(
+                                  'Nothing to display! Please start uploading.. ',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                         ],
                       ),
                     ),

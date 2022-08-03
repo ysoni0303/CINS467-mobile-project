@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'add_video.dart';
+import 'uploadVideo.dart';
 import 'profile.dart';
 import 'search.dart';
 import 'video.dart';
@@ -13,9 +13,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> {
-  int pageIndex = 0;
+  int index = 0;
 
-  List pages = [
+  List views = [
     Video(),
     Search(),
     AddVideo(),
@@ -26,10 +26,10 @@ class _HomePageState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CupertinoTabBar(
-          currentIndex: pageIndex,
-          onTap: (index) {
+          currentIndex: index,
+          onTap: (i) {
             setState(() {
-              pageIndex = index;
+              index = i;
             });
           },
           activeColor: Colors.red,
@@ -66,6 +66,6 @@ class _HomePageState extends State<Home> {
             ),
           ],
         ),
-        body: pages[pageIndex]);
+        body: views[index]);
   }
 }

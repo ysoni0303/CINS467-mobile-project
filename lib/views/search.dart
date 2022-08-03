@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 import 'profile.dart';
 import '../controllers/profile.dart';
@@ -50,11 +51,13 @@ class Search extends StatelessWidget {
                               Profile(isSearch: true, uid: searchData.uid),
                         ),
                       ),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          searchData.profilePhoto,
-                        ),
-                      ),
+                      leading: AvatarGlow(
+                          endRadius: 30.0,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              searchData.profilePhoto,
+                            ),
+                          )),
                       title: Text(
                         searchData.name,
                         style: const TextStyle(
