@@ -3,8 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
-import '/const.dart';
-import '../views/login_page.dart';
+import 'login.dart';
+import '../controllers/auth.dart';
 
 void main() => runApp(new MyApp());
 
@@ -105,7 +105,7 @@ class _LoginPageState extends State<SignUp> {
                 bottom: -10,
                 left: 80,
                 child: IconButton(
-                  onPressed: () => authController.uploadImage(),
+                  onPressed: () => AuthController.instance.uploadImage(),
                   icon: Icon(Icons.add_a_photo),
                 ), // IconButton
               )
@@ -159,9 +159,9 @@ class _LoginPageState extends State<SignUp> {
     print(_email);
     print(_password);
     print(_username);
-    print(authController.profilePhoto);
-    authController.registerUser(
-        _username, _email, _password, authController.profilePhoto);
+    print(AuthController.instance.profilePhoto);
+    AuthController.instance.registerUser(
+        _username, _email, _password, AuthController.instance.profilePhoto);
   }
 
   void _LoginPage() {

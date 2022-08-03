@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/video.dart';
-import '../views/comment_page.dart';
+import '../controllers/auth.dart';
+import 'comment.dart';
 import '../views/videoplayeritem.dart';
 
 class VideoPage extends StatelessWidget {
@@ -76,11 +77,17 @@ class VideoPage extends StatelessWidget {
                                 Column(
                                   children: [
                                     InkWell(
+                                        onTap: () =>
+                                            _videoController.likeVideo(data.id),
                                         child: Icon(
-                                      Icons.favorite,
-                                      color: Colors.yellow,
-                                      size: 40,
-                                    )),
+                                          Icons.favorite,
+                                          color: data.likes.contains(
+                                                  AuthController
+                                                      .instance.user.uid)
+                                              ? Colors.red
+                                              : Colors.yellow,
+                                          size: 40,
+                                        )),
                                     Text(data.likes.length.toString(),
                                         style: TextStyle(color: Colors.amber))
                                   ],
@@ -116,12 +123,9 @@ class VideoPage extends StatelessWidget {
                                         style: TextStyle(color: Colors.amber))
                                   ],
                                 ),
-                                Text(data.username,
-                                    style: TextStyle(
-                                      fontSize: 21,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                SizedBox(
+                                  height: 60,
+                                ),
                                 Text(data.caption,
                                     style: TextStyle(
                                       fontSize: 16,
@@ -145,19 +149,31 @@ class VideoPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          alignment: Alignment.bottomRight,
-                          width: 100.0,
-                          height: 100.0,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(40.0),
-                            child: Image.network(
-                              data.profilePhoto,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(15),
+                                alignment: Alignment.bottomRight,
+                                width: 100.0,
+                                height: 100.0,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                  child: Image.network(
+                                    data.profilePhoto,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Text(data.username,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ]),
                       ],
                     )),
                   ],

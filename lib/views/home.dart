@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-import '/const.dart';
+import 'add_video.dart';
+import 'profile.dart';
+import 'search.dart';
+import 'video.dart';
+import '../controllers/auth.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int pageIndex = 0;
+
+  List pages = [
+    VideoPage(),
+    SearchPage(),
+    AddVideoPage(),
+    ProfilePage(isSearch: false, uid: AuthController.instance.user.uid),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           },
           activeColor: Colors.red,
           inactiveColor: Colors.grey,
-          backgroundColor: backgroundColor,
+          backgroundColor: Colors.black,
           items: [
             BottomNavigationBarItem(
               icon: Icon(

@@ -1,12 +1,8 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '/const.dart';
-import '../controllers/comment.dart';
+import '../controllers/video.dart';
 
 class CommentPage extends StatelessWidget {
   final String id;

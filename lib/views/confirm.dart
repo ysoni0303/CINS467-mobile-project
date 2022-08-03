@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 
-import 'package:video_player/video_player.dart';
-import '../controllers/upload.dart';
+import '../controllers/video.dart';
 
 class ConfirmPage extends StatefulWidget {
   final File videoFile;

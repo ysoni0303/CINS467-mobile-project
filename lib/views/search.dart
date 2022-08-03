@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/users.dart';
-import '../views/profile_page.dart';
-import '../controllers/search.dart';
+import 'profile.dart';
+import '../controllers/profile.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -49,6 +48,12 @@ class SearchPage extends StatelessWidget {
                     print("searchData");
                     print(searchData.profilePhoto);
                     return ListTile(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProfilePage(isSearch: true, uid: searchData.uid),
+                        ),
+                      ),
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(
                           searchData.profilePhoto,

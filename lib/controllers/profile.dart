@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '/const.dart';
+import '../controllers/auth.dart';
+import '../models/users.dart';
 
 class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
@@ -9,13 +10,15 @@ class ProfileController extends GetxController {
   Rx<String> _uid = "".obs;
 
   updateUserId(String uid) {
+    print('updateUserId');
+    print(uid);
     _uid.value = uid;
     getUserDetails();
   }
 
   getUserDetails() async {
     List<String> thumbnails = [];
-    var myVideos = await firestore
+    var myVideos = await FirebaseFirestore.instance
         .collection('videos')
         .where('uid', isEqualTo: _uid.value)
         .get();
@@ -24,8 +27,10 @@ class ProfileController extends GetxController {
       thumbnails.add((myVideos.docs[i].data() as dynamic)['thumbnail']);
     }
 
-    DocumentSnapshot userDoc =
-        await firestore.collection('users').doc(_uid.value).get();
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_uid.value)
+        .get();
     final userData = userDoc.data()! as dynamic;
     String name = userData['name'];
     String profilePhoto = userData['profilePhoto'];
@@ -37,12 +42,12 @@ class ProfileController extends GetxController {
     for (var item in myVideos.docs) {
       likes += (item.data()['likes'] as List).length;
     }
-    var followerDoc = await firestore
+    var followerDoc = await FirebaseFirestore.instance
         .collection('users')
         .doc(_uid.value)
         .collection('followers')
         .get();
-    var followingDoc = await firestore
+    var followingDoc = await FirebaseFirestore.instance
         .collection('users')
         .doc(_uid.value)
         .collection('following')
@@ -50,11 +55,11 @@ class ProfileController extends GetxController {
     followers = followerDoc.docs.length;
     following = followingDoc.docs.length;
 
-    firestore
+    FirebaseFirestore.instance
         .collection('users')
         .doc(_uid.value)
         .collection('followers')
-        .doc(authController.user.uid)
+        .doc(AuthController.instance.user.uid)
         .get()
         .then((value) {
       if (value.exists) {
@@ -77,23 +82,23 @@ class ProfileController extends GetxController {
   }
 
   followUser() async {
-    var doc = await firestore
+    var doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(_uid.value)
         .collection('followers')
-        .doc(authController.user.uid)
+        .doc(AuthController.instance.user.uid)
         .get();
 
     if (!doc.exists) {
-      await firestore
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(_uid.value)
           .collection('followers')
-          .doc(authController.user.uid)
+          .doc(AuthController.instance.user.uid)
           .set({});
-      await firestore
+      await FirebaseFirestore.instance
           .collection('users')
-          .doc(authController.user.uid)
+          .doc(AuthController.instance.user.uid)
           .collection('following')
           .doc(_uid.value)
           .set({});
@@ -102,15 +107,15 @@ class ProfileController extends GetxController {
         (value) => (int.parse(value) + 1).toString(),
       );
     } else {
-      await firestore
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(_uid.value)
           .collection('followers')
-          .doc(authController.user.uid)
+          .doc(AuthController.instance.user.uid)
           .delete();
-      await firestore
+      await FirebaseFirestore.instance
           .collection('users')
-          .doc(authController.user.uid)
+          .doc(AuthController.instance.user.uid)
           .collection('following')
           .doc(_uid.value)
           .delete();
@@ -121,5 +126,30 @@ class ProfileController extends GetxController {
     }
     _user.value.update('isFollowing', (value) => !value);
     update();
+  }
+}
+
+class SearchController {
+  final Rx<List<User>> _searchedUsers = Rx<List<User>>([]);
+
+  List<User> get searchedUsers => _searchedUsers.value;
+
+  searchUser(String typedUser) async {
+    print('1');
+    print(typedUser);
+    _searchedUsers.bindStream(FirebaseFirestore.instance
+        .collection('users')
+        .where('name', isEqualTo: typedUser)
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<User> retVal = [];
+      for (var elem in query.docs) {
+        print('2');
+        retVal.add(User.fromSnap(elem));
+      }
+      print('3');
+      print(retVal);
+      return retVal;
+    }));
   }
 }

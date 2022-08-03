@@ -1,14 +1,18 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
-import 'package:video_app/const.dart';
-import 'package:video_app/controllers/profile.dart';
+import 'package:video_app/controllers/auth.dart';
+import '../controllers/profile.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;
+  final bool isSearch;
   const ProfilePage({
     Key? key,
+    required this.isSearch,
     required this.uid,
   }) : super(key: key);
 
@@ -22,7 +26,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    profileController.updateUserId(widget.uid);
+
+    print('initState');
+    print(widget.uid);
+    if (widget.isSearch) {
+      profileController.updateUserId(widget.uid);
+    } else {
+      profileController.updateUserId(AuthController.instance.user.uid);
+    }
   }
 
   @override
@@ -38,14 +49,11 @@ class _ProfilePageState extends State<ProfilePage> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
-              leading: const Icon(
-                Icons.person_add_alt_1_outlined,
-              ),
-              actions: const [
-                Icon(Icons.more_horiz),
-              ],
+              // actions: const [
+              //   Icon(Icons.more_horiz),
+              // ],
               title: Text(
-                controller.user['name'],
+                'Username- ${controller.user['name']}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -170,15 +178,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Center(
                               child: InkWell(
                                 onTap: () {
-                                  // if (widget.uid == authController.user.uid) {
-                                  //   authController.signOut();
-                                  // } else {
-                                  //   controller.followUser();
-                                  // }
-                                  authController.signOut();
+                                  if (widget.isSearch != true &&
+                                      widget.uid ==
+                                          AuthController.instance.user.uid) {
+                                    AuthController.instance.signOut();
+                                  } else if (widget.isSearch == false) {
+                                    AuthController.instance.signOut();
+                                  } else {
+                                    controller.followUser();
+                                  }
                                 },
                                 child: Text(
-                                  widget.uid == authController.user.uid
+                                  widget.uid == AuthController.instance.user.uid
                                       ? 'Sign Out'
                                       : controller.user['isFollowing']
                                           ? 'Unfollow'

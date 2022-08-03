@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'dart:io' as i;
 
 import '../models/users.dart' as model;
-import '../views/login_page.dart';
-import '../views/home_page.dart';
-import '../const.dart';
+import '../views/login.dart';
+import '../views/home.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -21,12 +21,14 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    _user = Rx<User?>(firebaseAuth.currentUser);
-    _user.bindStream(firebaseAuth.authStateChanges());
+    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _user.bindStream(FirebaseAuth.instance.authStateChanges());
     ever(_user, _setInitialState);
   }
 
   _setInitialState(User? user) {
+    print('auth');
+    print(user);
     if (user == null) {
       Get.offAll(LoginPage());
     } else {
@@ -41,15 +43,14 @@ class AuthController extends GetxController {
     if (pickedImage != null) {
       Get.snackbar('Profile Photo', 'Uploaded Successfully!!');
     }
-
     _pickedImage = Rx<i.File?>(i.File(pickedImage!.path));
   }
 
   Future<String> _uploadImageToStorage(i.File image) async {
-    Reference ref = firebaseStorage
+    Reference ref = FirebaseStorage.instance
         .ref()
         .child('profilePics')
-        .child(firebaseAuth.currentUser!.uid);
+        .child(FirebaseAuth.instance.currentUser!.uid);
     UploadTask uploadTask = ref.putFile(image);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
@@ -63,8 +64,8 @@ class AuthController extends GetxController {
           email.isNotEmpty &&
           password.isNotEmpty &&
           image != null) {
-        UserCredential cred = await firebaseAuth.createUserWithEmailAndPassword(
-            email: email, password: password);
+        UserCredential cred = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
         String downloadUrl = await _uploadImageToStorage(image);
         model.User user = model.User(
             name: username,
@@ -72,7 +73,7 @@ class AuthController extends GetxController {
             email: email,
             uid: cred.user!.uid);
 
-        await firestore
+        await FirebaseFirestore.instance
             .collection('users')
             .doc(cred.user!.uid)
             .set(user.toJson());
@@ -87,8 +88,8 @@ class AuthController extends GetxController {
   void loginUser(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
-        await firebaseAuth.signInWithEmailAndPassword(
-            email: email, password: password);
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
         print('Logged in already');
         Get.offAll(HomePage());
       } else {
@@ -100,6 +101,7 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
-    await firebaseAuth.signOut();
+    await FirebaseAuth.instance.signOut();
+    print(_user);
   }
 }

@@ -1,10 +1,7 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-import '/const.dart';
-import '../views/home_page.dart';
-import '../views/signup_page.dart';
+import 'registration.dart';
+import '../controllers/auth.dart';
 
 void main() => runApp(new MyApp());
 
@@ -71,7 +68,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildBar(BuildContext context) {
     return new AppBar(
-      title: new Text("Simple Login Example"),
       centerTitle: true,
     );
   }
@@ -121,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
   void _loginAccount() {
     print(_email);
     print(_password);
-    authController.loginUser(_email, _password);
+    AuthController.instance.loginUser(_email, _password);
   }
 
   void _SignUpPage() {

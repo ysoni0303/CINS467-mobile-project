@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import '/const.dart';
-import '../views/confirm_page.dart';
+import 'confirm.dart';
 
 class AddVideoPage extends StatelessWidget {
   pickVideo(ImageSource src, BuildContext context) async {
@@ -30,13 +29,13 @@ class AddVideoPage extends StatelessWidget {
                   onPressed: () {
                     pickVideo(ImageSource.gallery, context);
                   },
-                  child: const Text('Camera'),
+                  child: const Text('Gallery'),
                 ),
                 SimpleDialogOption(
                   onPressed: () {
                     pickVideo(ImageSource.camera, context);
                   },
-                  child: const Text('Gallery'),
+                  child: const Text('Camera'),
                 ),
               ],
               elevation: 10,
