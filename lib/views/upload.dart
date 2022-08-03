@@ -5,28 +5,27 @@ import 'dart:io';
 
 import '../controllers/video.dart';
 
-class ConfirmPage extends StatefulWidget {
-  final File videoFile;
-  final String videoPath;
+class UploadForm extends StatefulWidget {
+  final File file;
+  final String path;
 
-  const ConfirmPage(
-      {Key? key, required this.videoFile, required this.videoPath})
+  const UploadForm({Key? key, required this.file, required this.path})
       : super(key: key);
 
   @override
-  State<ConfirmPage> createState() => _ConfirmPageState();
+  State<UploadForm> createState() => _UploadFormState();
 }
 
-class _ConfirmPageState extends State<ConfirmPage> {
+class _UploadFormState extends State<UploadForm> {
   late VideoPlayerController controller;
-  final TextEditingController _songNameController = TextEditingController();
-  final TextEditingController _captionController = TextEditingController();
+  final TextEditingController _songController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      controller = VideoPlayerController.file(widget.videoFile);
+      controller = VideoPlayerController.file(widget.file);
     });
 
     controller.initialize();
@@ -62,29 +61,23 @@ class _ConfirmPageState extends State<ConfirmPage> {
             height: 30,
           ),
           TextField(
-            controller: _songNameController,
-            decoration: InputDecoration(
-              hintText: 'Song Name',
-              border: OutlineInputBorder(),
-            ),
+            controller: _songController,
+            decoration: new InputDecoration(labelText: 'Song..'),
           ),
           TextField(
-            controller: _captionController,
-            decoration: InputDecoration(
-              hintText: 'Caption',
-              border: OutlineInputBorder(),
-            ),
+            controller: _descriptionController,
+            decoration: new InputDecoration(labelText: 'Description..'),
           ),
           SizedBox(
             height: 15,
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.blue),
+              style: ElevatedButton.styleFrom(primary: Colors.red),
               onPressed: () {
-                _uploadVideoController.uploadVideo(_songNameController.text,
-                    _captionController.text, widget.videoPath);
+                _uploadVideoController.uploadVideo(_songController.text,
+                    _descriptionController.text, widget.path);
               },
-              child: Text('Share'))
+              child: Text('Publish'))
         ],
       ),
     ));

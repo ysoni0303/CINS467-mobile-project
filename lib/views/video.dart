@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../controllers/video.dart';
 import '../controllers/auth.dart';
 import 'comment.dart';
-import '../views/videoplayeritem.dart';
+import '../views/player.dart';
 
 class VideoPage extends StatelessWidget {
   final VideoController _videoController = Get.put(VideoController());

@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           },
           activeColor: Colors.red,
           inactiveColor: Colors.grey,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.pink[100],
           items: [
             BottomNavigationBarItem(
               icon: Icon(
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.add,
+                Icons.camera,
                 size: 30,
               ),
               label: 'Upload',

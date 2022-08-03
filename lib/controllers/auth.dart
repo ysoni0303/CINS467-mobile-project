@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'dart:io' as i;
 
-import '../models/users.dart' as model;
+import '../models/user.dart' as model;
 import '../views/login.dart';
 import '../views/home.dart';
 

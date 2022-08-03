@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import 'confirm.dart';
+import 'upload.dart';
 
 class AddVideoPage extends StatelessWidget {
   pickVideo(ImageSource src, BuildContext context) async {
     final video = await ImagePicker().pickVideo(source: src);
     if (video != null) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return ConfirmPage(
-          videoFile: File(video.path),
-          videoPath: video.path,
+        return UploadForm(
+          file: File(video.path),
+          path: video.path,
         );
       }));
     }
