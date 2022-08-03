@@ -13,10 +13,10 @@ class ProfileController extends GetxController {
     print('updateUserId');
     print(uid);
     _uid.value = uid;
-    getUserDetails();
+    profile();
   }
 
-  getUserDetails() async {
+  profile() async {
     List<String> thumbnails = [];
     var myVideos = await FirebaseFirestore.instance
         .collection('videos')
@@ -129,27 +129,26 @@ class ProfileController extends GetxController {
   }
 }
 
-class SearchController {
-  final Rx<List<User>> _searchedUsers = Rx<List<User>>([]);
-
-  List<User> get searchedUsers => _searchedUsers.value;
+class Searching {
+  final Rx<List<User>> _users = Rx<List<User>>([]);
+  List<User> get searchedUsers => _users.value;
 
   searchUser(String typedUser) async {
     print('1');
     print(typedUser);
-    _searchedUsers.bindStream(FirebaseFirestore.instance
+    List<User> data = [];
+    _users.bindStream(FirebaseFirestore.instance
         .collection('users')
         .where('name', isEqualTo: typedUser)
         .snapshots()
         .map((QuerySnapshot query) {
-      List<User> retVal = [];
       for (var elem in query.docs) {
         print('2');
-        retVal.add(User.fromSnap(elem));
+        data.add(User.fromSnap(elem));
       }
       print('3');
-      print(retVal);
-      return retVal;
+      print(data);
+      return data;
     }));
   }
 }

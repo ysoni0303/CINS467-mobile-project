@@ -7,19 +7,19 @@ import 'search.dart';
 import 'video.dart';
 import '../controllers/auth.dart';
 
-class HomePage extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Home> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<Home> {
   int pageIndex = 0;
 
   List pages = [
-    VideoPage(),
-    SearchPage(),
-    AddVideoPage(),
-    ProfilePage(isSearch: false, uid: AuthController.instance.user.uid),
+    Video(),
+    Search(),
+    AddVideo(),
+    Profile(isSearch: false, uid: AuthController.instance.user.uid),
   ];
 
   @override

@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'profile.dart';
 import '../controllers/profile.dart';
 
-class SearchPage extends StatelessWidget {
-  SearchPage({Key? key}) : super(key: key);
+class Search extends StatelessWidget {
+  Search({Key? key}) : super(key: key);
 
-  final SearchController _searchController = Get.put(SearchController());
-  final TextEditingController searchController = TextEditingController();
+  final Searching _search = Get.put(Searching());
+  final TextEditingController search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,41 +17,37 @@ class SearchPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.red,
           title: TextFormField(
-            controller: searchController,
+            controller: search,
             decoration: const InputDecoration(
               filled: false,
-              hintText: 'Search',
+              hintText: 'Enter Username',
               hintStyle: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
             ),
-            onFieldSubmitted: (value) => _searchController.searchUser(value),
+            onFieldSubmitted: (value) => _search.searchUser(value),
           ),
         ),
-        body: _searchController.searchedUsers.isEmpty
+        body: _search.searchedUsers.isEmpty
             ? const Center(
                 child: Text(
-                  'Search for users!',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  'Enter Username!!',
+                  style: TextStyle(fontSize: 20, color: Colors.red),
                 ),
               )
             : Obx(() {
                 return ListView.builder(
-                  itemCount: _searchController.searchedUsers.length,
+                  itemCount: _search.searchedUsers.length,
                   itemBuilder: (context, index) {
-                    final searchData = _searchController.searchedUsers[index];
+                    final searchData = _search.searchedUsers[index];
                     print("searchData");
                     print(searchData.profilePhoto);
                     return ListTile(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ProfilePage(isSearch: true, uid: searchData.uid),
+                              Profile(isSearch: true, uid: searchData.uid),
                         ),
                       ),
                       leading: CircleAvatar(

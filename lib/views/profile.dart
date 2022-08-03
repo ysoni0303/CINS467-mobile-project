@@ -7,20 +7,20 @@ import 'package:get/instance_manager.dart';
 import 'package:video_app/controllers/auth.dart';
 import '../controllers/profile.dart';
 
-class ProfilePage extends StatefulWidget {
+class Profile extends StatefulWidget {
   final String uid;
   final bool isSearch;
-  const ProfilePage({
+  const Profile({
     Key? key,
     required this.isSearch,
     required this.uid,
   }) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<Profile> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<Profile> {
   final ProfileController profileController = Get.put(ProfileController());
 
   @override

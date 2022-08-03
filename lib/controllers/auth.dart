@@ -30,9 +30,9 @@ class AuthController extends GetxController {
     print('auth');
     print(user);
     if (user == null) {
-      Get.offAll(LoginPage());
+      Get.offAll(Login());
     } else {
-      Get.offAll(HomePage());
+      Get.offAll(Home());
     }
   }
 
@@ -91,7 +91,7 @@ class AuthController extends GetxController {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         print('Logged in already');
-        Get.offAll(HomePage());
+        Get.offAll(Home());
       } else {
         Get.snackbar('Error logging', 'Check details');
       }

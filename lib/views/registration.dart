@@ -167,6 +167,6 @@ class _LoginPageState extends State<SignUp> {
   void _LoginPage() {
     print('_LoginPage');
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: ((context) => LoginPage())));
+        .push(MaterialPageRoute(builder: ((context) => Login())));
   }
 }

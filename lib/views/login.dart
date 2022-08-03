@@ -10,19 +10,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: new ThemeData(primarySwatch: Colors.red),
-      home: new LoginPage(),
+      home: new Login(),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
 }
 
 enum FormType { login, register }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<Login> {
   final TextEditingController _emailFilter = new TextEditingController();
   final TextEditingController _passwordFilter = new TextEditingController();
   String _email = "";

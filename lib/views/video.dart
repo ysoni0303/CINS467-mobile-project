@@ -6,7 +6,7 @@ import '../controllers/auth.dart';
 import 'comment.dart';
 import '../views/player.dart';
 
-class VideoPage extends StatelessWidget {
+class Video extends StatelessWidget {
   final VideoController _videoController = Get.put(VideoController());
 
   buildMusicAlbum(String profilePhoto) {
@@ -111,7 +111,7 @@ class VideoPage extends StatelessWidget {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) {
-                                            return CommentPage(id: data.id);
+                                            return Comment(id: data.id);
                                           })); // Material PageRoute
                                         },
                                         child: Icon(

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'upload.dart';
 
-class AddVideoPage extends StatelessWidget {
+class AddVideo extends StatelessWidget {
   pickVideo(ImageSource src, BuildContext context) async {
     final video = await ImagePicker().pickVideo(source: src);
     if (video != null) {

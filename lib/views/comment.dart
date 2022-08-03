@@ -4,12 +4,12 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import '../controllers/video.dart';
 
-class CommentPage extends StatelessWidget {
+class Comment extends StatelessWidget {
   final String id;
   final TextEditingController _commentController = TextEditingController();
   final CommentController commentController = Get.put(CommentController());
 
-  CommentPage({super.key, required this.id});
+  Comment({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
